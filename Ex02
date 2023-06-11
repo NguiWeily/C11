@@ -1,0 +1,70 @@
+Files to turn in : ft_any.c
+Allowed functions : None
+
+• Create a function ft_any which will return 1 if, passed to the function f, at least
+one element of the array returns something else than 0. Else, it should return 0.
+• This function will be applied following the array’s order.
+• Here’s how the function should be prototyped :
+int ft_any(char **tab, int(*f)(char*));
+
+• The array will be delimited with a null pointer.
+
+Certainly! Here's the implementation of the `ft_any` function:
+
+```c
+int ft_any(char **tab, int(*f)(char*))
+{
+    int i = 0;
+
+    while (tab[i] != NULL)
+    {
+        if (f(tab[i]) != 0)
+            return 1;
+        i++;
+    }
+
+    return 0;
+}
+```
+
+This function takes an array of strings `tab` and a function pointer `f` as parameters. It iterates over the elements of the array and applies the function `f` to each element. If the function `f` returns a non-zero value for at least one element, the function `ft_any` returns 1. Otherwise, it returns 0.
+
+Note that the array is delimited by a null pointer, so the loop terminates when it encounters a null pointer indicating the end of the array.
+
+Certainly! Here's a test program for the `ft_any` function:
+
+```c
+#include <stdio.h>
+
+int is_vowel(char *str)
+{
+    char vowels[] = "aeiouAEIOU";
+    int i = 0;
+
+    while (str[i] != '\0')
+    {
+        if (strchr(vowels, str[i]) != NULL)
+            return 1;
+        i++;
+    }
+
+    return 0;
+}
+
+int main(void)
+{
+    char *words[] = {"hello", "world", "apple", "banana", "orange", NULL};
+
+    if (ft_any(words, &is_vowel))
+        printf("At least one word contains a vowel.\n");
+    else
+        printf("No word contains a vowel.\n");
+
+    return 0;
+}
+```
+
+In this test program, we have an array of strings `words`. The `is_vowel` function is used as the function pointer `f` in the `ft_any` function. The `is_vowel` function checks if a given string contains any vowel characters.
+
+The program calls the `ft_any` function with the array `words` and `is_vowel` function. If at least one word in the array contains a vowel, it prints "At least one word contains a vowel." Otherwise, it prints "No word contains a vowel."
+
