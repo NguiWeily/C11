@@ -1,0 +1,49 @@
+Files to turn in : ft_foreach.c
+Allowed functions : None
+
+• Create the function ft_foreach which, for a given ints array, applies a function on
+all elements of the array. This function will be applied following the array’s order.
+• Here’s how the function should be prototyped :
+void ft_foreach(int *tab, int length, void(*f)(int));
+
+• For example, the function ft_foreach could be called as follows in order to display
+all ints of the array :
+ft_foreach(tab, 1337, &ft_putnbr);
+
+Here's the implementation of the `ft_foreach` function:
+
+```c
+void ft_foreach(int *tab, int length, void (*f)(int))
+{
+    int i;
+    for (i = 0; i < length; i++)
+    {
+        f(tab[i]);
+    }
+}
+```
+
+This function takes an array of integers `tab`, its length `length`, and a function pointer `f` as arguments. It applies the function `f` to each element of the array in order, using a loop. The function `f` should have a void return type and take an integer parameter.
+
+For example, you can define a function `void print_int(int n)` to display an integer, and then call `ft_foreach` to print all the integers in the array `tab`:
+
+```c
+#include <stdio.h>
+
+void print_int(int n)
+{
+    printf("%d ", n);
+}
+
+int main()
+{
+    int tab[] = {1, 2, 3, 4, 5};
+    int length = sizeof(tab) / sizeof(tab[0]);
+
+    ft_foreach(tab, length, &print_int);
+
+    return 0;
+}
+```
+
+This program will output: `1 2 3 4 5`
