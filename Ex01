@@ -1,0 +1,132 @@
+Files to turn in : ft_map.c
+Allowed functions : malloc
+
+• Create the function ft_map which, for a given ints array, applies a function on all
+elements of the array (in order) and returns a array of all the return values.
+• This function will be applied following the array’s order.
+• Here’s how the function should be prototyped :
+int *ft_map(int *tab, int length, int(*f)(int));
+
+Here's the implementation of the `ft_map` function:
+
+```c
+#include <stdlib.h>
+
+int *ft_map(int *tab, int length, int (*f)(int))
+{
+    int *result = (int *)malloc(length * sizeof(int));
+    if (result == NULL)
+    {
+        return NULL; // Memory allocation failed
+    }
+
+    for (int i = 0; i < length; i++)
+    {
+        result[i] = f(tab[i]);
+    }
+
+    return result;
+}
+```
+
+The `ft_map` function takes an array of integers `tab`, its length `length`, and a function pointer `f` as arguments. It applies the function `f` to each element of the array in order and stores the return values in a dynamically allocated array `result`. The function returns a pointer to the resulting array.
+
+Note that the memory allocation for `result` is done using `malloc`. It's important to check if `malloc` returns `NULL` to handle cases where the memory allocation fails.
+
+Here's an example usage of `ft_map`:
+
+```c
+#include <stdio.h>
+
+int square(int n)
+{
+    return n * n;
+}
+
+int main()
+{
+    int tab[] = {1, 2, 3, 4, 5};
+    int length = sizeof(tab) / sizeof(tab[0]);
+
+    int *result = ft_map(tab, length, &square);
+
+    if (result != NULL)
+    {
+        for (int i = 0; i < length; i++)
+        {
+            printf("%d ", result[i]);
+        }
+        printf("\n");
+
+        free(result); // Remember to free the allocated memory
+    }
+
+    return 0;
+}
+```
+
+This program applies the `square` function to each element of the `tab` array and prints the resulting array: `1 4 9 16 25`.
+
+Make sure to include the necessary header files (`stdlib.h` and `stdio.h`) for the function prototypes and memory allocation.
+
+Here's the implementation of the `ft_map` function:
+
+```c
+#include <stdlib.h>
+
+int *ft_map(int *tab, int length, int (*f)(int))
+{
+    int *result = (int *)malloc(length * sizeof(int));
+    if (result == NULL)
+    {
+        return NULL; // Memory allocation failed
+    }
+
+    for (int i = 0; i < length; i++)
+    {
+        result[i] = f(tab[i]);
+    }
+
+    return result;
+}
+```
+
+The `ft_map` function takes an array of integers `tab`, its length `length`, and a function pointer `f` as arguments. It applies the function `f` to each element of the array in order and stores the return values in a dynamically allocated array `result`. The function returns a pointer to the resulting array.
+
+Note that the memory allocation for `result` is done using `malloc`. It's important to check if `malloc` returns `NULL` to handle cases where the memory allocation fails.
+
+Here's an example usage of `ft_map`:
+
+```c
+#include <stdio.h>
+
+int square(int n)
+{
+    return n * n;
+}
+
+int main()
+{
+    int tab[] = {1, 2, 3, 4, 5};
+    int length = sizeof(tab) / sizeof(tab[0]);
+
+    int *result = ft_map(tab, length, &square);
+
+    if (result != NULL)
+    {
+        for (int i = 0; i < length; i++)
+        {
+            printf("%d ", result[i]);
+        }
+        printf("\n");
+
+        free(result); // Remember to free the allocated memory
+    }
+
+    return 0;
+}
+```
+
+This program applies the `square` function to each element of the `tab` array and prints the resulting array: `1 4 9 16 25`.
+
+Make sure to include the necessary header files (`stdlib.h` and `stdio.h`) for the function prototypes and memory allocation.
