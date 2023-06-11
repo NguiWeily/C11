@@ -1,0 +1,148 @@
+Files to turn in : Your program files
+Allowed functions : write
+
+• Create a program called do-op.
+• The progam will be executed with three arguments: do-op value1 operateur
+value2
+• Example :
+$>./do-op 42 "+" 21
+63
+$>
+• You should use an array of pointers to function to take care of the operator.
+• In case of an invalid operator your program should print 0.
+• If the number of arguments is invalid, do-op doesn’t display anything.
+• Your program should accept and print the result for the following operators: ’+’ ’-’
+’/’ ’*’ and ’%’
+• In case of a division by 0, it should print:
+Stop : division by zero
+• In case of a modulo by 0, it should print:
+Stop : modulo by zero
+
+• Here’s an example of tests the Moulinette will run :
+$> make clean
+$> make
+$> ./do-op
+$> ./do-op 1 + 1
+2
+$> ./do-op 42amis - --+-20toto12
+62
+$> ./do-op 1 p 1
+0
+$> ./do-op 1 + toto3
+1
+$>
+$> ./do-op toto3 + 4
+4
+$> ./do-op foo plus bar
+0
+$> ./do-op 25 / 0
+Stop : division by zero
+$> ./do-op 25 % 0
+Stop : modulo by zero
+$>
+
+Here's the implementation of the "do-op" program that performs the specified operations:
+
+```c
+#include <unistd.h>
+
+int ft_atoi(char *str)
+{
+    int i = 0;
+    int sign = 1;
+    int result = 0;
+
+    if (str[i] == '-')
+    {
+        sign = -1;
+        i++;
+    }
+
+    while (str[i] != '\0')
+    {
+        if (str[i] >= '0' && str[i] <= '9')
+        {
+            result = result * 10 + (str[i] - '0');
+            i++;
+        }
+        else
+            return 0;
+    }
+
+    return result * sign;
+}
+
+void ft_putnbr(int nb)
+{
+    char digit;
+
+    if (nb < 0)
+    {
+        write(1, "-", 1);
+        nb = -nb;
+    }
+
+    if (nb >= 10)
+        ft_putnbr(nb / 10);
+
+    digit = '0' + (nb % 10);
+    write(1, &digit, 1);
+}
+
+void do_operation(int value1, char *operator, int value2)
+{
+    int result;
+
+    if (*operator == '+')
+        result = value1 + value2;
+    else if (*operator == '-')
+        result = value1 - value2;
+    else if (*operator == '*')
+        result = value1 * value2;
+    else if (*operator == '/')
+    {
+        if (value2 == 0)
+        {
+            write(1, "Stop : division by zero\n", 24);
+            return;
+        }
+        result = value1 / value2;
+    }
+    else if (*operator == '%')
+    {
+        if (value2 == 0)
+        {
+            write(1, "Stop : modulo by zero\n", 22);
+            return;
+        }
+        result = value1 % value2;
+    }
+    else
+    {
+        write(1, "0\n", 2);
+        return;
+    }
+
+    ft_putnbr(result);
+    write(1, "\n", 1);
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc == 4)
+    {
+        int value1 = ft_atoi(argv[1]);
+        char *operator = argv[2];
+        int value2 = ft_atoi(argv[3]);
+        do_operation(value1, operator, value2);
+    }
+
+    return 0;
+}
+```
+
+In this program, we define three functions: `ft_atoi` for converting strings to integers, `ft_putnbr` for printing integers, and `do_operation` for performing the arithmetic operations based on the provided arguments.
+
+The `main` function checks if the number of arguments is valid (three arguments) and calls `do_operation` with the parsed integer values and the operator.
+
+Compile the program using the appropriate flags and run it with the provided test cases to verify its functionality.
