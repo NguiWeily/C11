@@ -1,0 +1,81 @@
+Files to turn in : ft_sort_string_tab.c
+Allowed functions : None
+
+• Create the function ft_sort_string_tab, by ascii order the strings in tab.
+• tab will be null terminated
+• The sorting will be performed by exchanging the array’s pointers.
+• Here’s how it should be prototyped :
+void ft_sort_string_tab(char **tab);
+
+Here's the implementation of the `ft_sort_string_tab` function:
+
+```c
+void ft_swap_str(char **str1, char **str2)
+{
+    char *temp = *str1;
+    *str1 = *str2;
+    *str2 = temp;
+}
+
+void ft_sort_string_tab(char **tab)
+{
+    int i, j;
+    int size = 0;
+
+    // Get the size of the array
+    while (tab[size] != NULL)
+        size++;
+
+    // Bubble sort algorithm to sort the strings
+    for (i = 0; i < size - 1; i++)
+    {
+        for (j = 0; j < size - i - 1; j++)
+        {
+            if (strcmp(tab[j], tab[j + 1]) > 0)
+            {
+                ft_swap_str(&tab[j], &tab[j + 1]);
+            }
+        }
+    }
+}
+```
+
+In this implementation, we define a helper function `ft_swap_str` to swap two string pointers. The `ft_sort_string_tab` function uses the bubble sort algorithm to sort the strings in ascending order based on their ASCII values.
+
+To sort the strings, we iterate through the array and compare each string with the next one. If the current string is greater than the next string, we swap their positions. This process is repeated until the array is fully sorted.
+
+Compile your program with the appropriate flags and test the `ft_sort_string_tab` function with different string arrays to ensure its correctness.
+
+Here's a test code for the `ft_sort_string_tab` function:
+
+```c
+#include <stdio.h>
+
+void ft_sort_string_tab(char **tab);
+
+int main(void)
+{
+    char *tab[] = {"banana", "apple", "orange", "grape", "cherry", NULL};
+    int i;
+
+    printf("Before sorting:\n");
+    for (i = 0; tab[i] != NULL; i++)
+    {
+        printf("%s\n", tab[i]);
+    }
+
+    ft_sort_string_tab(tab);
+
+    printf("\nAfter sorting:\n");
+    for (i = 0; tab[i] != NULL; i++)
+    {
+        printf("%s\n", tab[i]);
+    }
+
+    return 0;
+}
+```
+
+In this test code, we define an array of strings `tab` containing various fruits. Before calling the `ft_sort_string_tab` function, we print the strings in their initial order. After calling the function, we print the strings again to see the sorted order.
+
+Compile and run the program to observe the sorting effect on the `tab` array. The strings should be displayed in ascending ASCII order.
